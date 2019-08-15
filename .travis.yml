@@ -2,20 +2,20 @@ sudo: required
 services:
    - docker
 before_install:
-   - docker build -t asbalk/react-test2 -f ./client/Dockerfile.dev ./client
+   - docker build -t ashanb/react-test2 -f ./client/Dockerfile.dev ./client
 
 script:
-   - docker run asbalk/react-test2 npm test npm test -- --coverage
+   - docker run -e CI=true ashanb/react-test2 npm test npm test -- --coverage
 
 after_success:
-   - docker build -t asbalk/multi-client ./client
-   - docker build -t asbalk/multi-nginx ./nginx
-   - docker build -t asbalk/multi-server ./server
-   - docker build -t asbalk/multi-worker ./worker
+   - docker build -t ashanb/multi-client ./client
+   - docker build -t ashanb/multi-nginx ./nginx
+   - docker build -t ashanb/multi-server ./server
+   - docker build -t ashanb/multi-worker ./worker
    # Log in to the docker CLI
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
    # Take those images and push them to docker hub
-   - docker push asbalk/multi-client
-   - docker push asbalk/multi-nginx
-   - docker push asbalk/multi-server
-   - docker push asbalk/multi-worker
+   - docker push ashanb/multi-client
+   - docker push ashanb/multi-nginx
+   - docker push ashanb/multi-server
+   - docker push ashanb/multi-worker
