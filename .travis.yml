@@ -12,5 +12,10 @@ after_success:
    - docker build -t asbalk/multi-nginx ./nginx
    - docker build -t asbalk/multi-server ./server
    - docker build -t asbalk/multi-worker ./worker
-   # Take those images and push them to docker hub
    # Log in to the docker CLI
+   - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+   # Take those images and push them to docker hub
+   - docker push asbalk/multi-client
+   - docker push asbalk/multi-nginx
+   - docker push asbalk/multi-server
+   - docker push asbalk/multi-worker
